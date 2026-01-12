@@ -1,0 +1,68 @@
+\documentclass[12pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[turkish]{babel}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+
+% --- URL/Link taşmasını engelle ---
+\usepackage{xurl}        % URL'leri en iyi kıran paket
+\usepackage{hyperref}    % tıklanabilir link
+\hypersetup{hidelinks}   % renk/box olmasın, APA gibi dursun
+\urlstyle{same}          % URL fontunu metinle aynı yap
+
+% Çok inatçı durumlarda ekstra kırma esnekliği:
+\emergencystretch=2em
+
+% --- APA benzeri asılı girinti (hanging indent) ---
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\newenvironment{refsection}
+  {\begin{list}{}{\setlength{\leftmargin}{1.27cm}\setlength{\itemindent}{-1.27cm}\setlength{\itemsep}{6pt}}}
+  {\end{list}}
+
+\begin{document}
+
+\section*{References}
+
+\begin{refsection}
+
+\item Adler, M., \& Dumas, B. (1984). Exposure to currency risk. \textit{Journal of Financial Economics, 12}(2), 263--279. \url{https://doi.org/10.2307/2328077}
+
+\item Augustin, P., Boustanifar, H., Breckenfelder, J., \& Schnitzler, J. (2018). Sovereign to corporate risk spillovers. \textit{The Journal of Finance, 73}(2), 1147--1181. \url{https://doi.org/10.1111/jofi.12601}
+
+\item Avdjiev, S., Bruno, V., Koch, C., \& Shin, H. S. (2019). The dollar exchange rate as a global risk factor. \textit{IMF Economic Review, 67}(1), 151--173. \url{https://doi.org/10.1057/s41308-019-00074-4}
+
+\item Ayyıldız, N., \& İskenderoğlu, Ö. (2023). Prediction of stock index movement using machine learning methods. \textit{Journal of Emerging Economies and Policy, 8}(2).
+
+\item Buluş, E. (2025). Comparison of deep learning models in stock price prediction. \textit{IEEE}.
+
+\item Cerutti, E., Claessens, S., \& Rose, A. K. (2017). How important is the global financial cycle? \textit{IMF Economic Review, 65}(1), 24--60. \url{https://doi.org/10.1057/s41308-017-0021-5}
+
+\item Fan, C., \& Zhang, X. (2024). Stock price nowcasting and forecasting with deep learning. \textit{Journal of Intelligent Information Systems}. \url{https://doi.org/10.1007/s10844-024-00908-2}
+
+\item Fleming, J., Ostdiek, B., \& Whaley, R. (1995). Predicting stock market volatility. \textit{Journal of Futures Markets, 15}(3), 265--302. \url{https://doi.org/10.1002/fut.3990150303}
+
+\item International Monetary Fund. (2014). \textit{Global liquidity, spillovers to emerging markets and policy responses}.
+
+\item Kalyoncu, Ş., et al. (2020). Stock market value prediction using deep learning.
+
+\item Koutmos, G. (2003). Asymmetric exchange rate exposure. \textit{Journal of Multinational Financial Management, 13}, 365--383.
+
+\item Longstaff, F., et al. (2011). How sovereign is sovereign credit risk? \textit{American Economic Journal: Macroeconomics, 3}(2), 75--103.
+
+\item Rey, H. (2015). Dilemma not trilemma. \textit{NBER Working Paper No. 21162}. \url{https://www.nber.org/papers/w21162}
+
+\item Sorhun, E. (2019). \textit{Now-casting emerging market stock returns}. Springer.
+
+\item Whaley, R. E. (2008). Understanding the VIX. \textit{Journal of Portfolio Management, 35}(3), 98--105.
+
+\item Gu, S., Kelly, B., \& Xiu, D. (2020). Empirical asset pricing via machine learning. \textit{Review of Financial Studies, 33}(5), 2223--2273. \url{https://doi.org/10.1093/rfs/hhaa009}
+
+\item Rapach, D. E., \& Zhou, G. (2013). Forecasting stock returns. In \textit{Handbook of Economic Forecasting} (Vol. 2, pp. 328--383). Elsevier. \url{https://doi.org/10.1016/B978-0-444-62731-5.00006-2}
+
+\item Welch, I., \& Goyal, A. (2008). A comprehensive look at the empirical performance of equity premium prediction. \textit{Review of Financial Studies, 21}(4), 1455--1508. \url{https://doi.org/10.1093/rfs/hhm014}
+
+\end{refsection}
+
+\end{document}
