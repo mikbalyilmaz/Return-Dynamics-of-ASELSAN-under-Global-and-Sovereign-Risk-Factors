@@ -145,8 +145,6 @@ This project is for academic and research purposes only. It does not constitute 
 
 ---
 
-*— The End —*
-
 ## Citation
 
 If you use this repository (code, workflow, or outputs) in academic work, you can cite it as:
