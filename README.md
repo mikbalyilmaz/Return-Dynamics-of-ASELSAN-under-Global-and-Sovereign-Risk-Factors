@@ -95,6 +95,8 @@ Yahoo Finance: ASELS.IS, XU100.IS, TRY=X, BTC-USD, BZ=F, ^VIX, DX-Y.NYB, ^TNX, d
 8 January 2026; its source was not recorded (most likely Investing.com). The panel ends on 8 January 2026, the last
 date of the CDS file.
 
+![Data](figures/fig1_data.png)
+
 ## Changes from version 1
 
 See [NEWS.md](NEWS.md): what was added and a table of the corrections to version 1.
