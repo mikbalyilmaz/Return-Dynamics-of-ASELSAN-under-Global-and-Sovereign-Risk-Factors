@@ -1,0 +1,2 @@
+test_first,test_last,test_days,train_days_first_forecast,sd_realized,mean_realized
+2025-01-02,2026-01-08,256,1248,2.688880792453971,0.5034725531159596

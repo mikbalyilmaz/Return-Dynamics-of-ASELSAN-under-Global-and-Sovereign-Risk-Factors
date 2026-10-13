@@ -1,0 +1,19 @@
+{
+  "downloaded_utc": "2026-10-12 22:52:48",
+  "yfinance_version": "1.0",
+  "pandas_version": "3.0.0",
+  "start": "2020-01-01",
+  "end_exclusive": "2026-01-13",
+  "auto_adjust": true,
+  "tickers": {
+    "ASELS": "ASELS.IS",
+    "BIST100": "XU100.IS",
+    "VIX": "^VIX",
+    "DXY": "DX-Y.NYB",
+    "US10Y": "^TNX",
+    "USDTRY": "TRY=X",
+    "BITCOIN": "BTC-USD",
+    "BRENT": "BZ=F"
+  },
+  "rows": 12852
+}

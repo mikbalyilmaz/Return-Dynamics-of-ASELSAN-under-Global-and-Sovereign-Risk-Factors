@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "Return Dynamics of ASELSAN under Global and Sovereign Risk Factors"
+version: 2.0.0
+authors:
+  - family-names: "Yılmaz"
+    given-names: "Muhammed İkbal"
+    email: "myucanlar@gmail.com"
+    affiliation: "Department of Econometrics, Ankara Hacı Bayram Veli University"
+repository-code: "https://github.com/mikbalyilmaz/Return-Dynamics-of-ASELSAN-under-Global-and-Sovereign-Risk-Factors"
+license: MIT
+keywords:
+  - ASELSAN
+  - Borsa Istanbul
+  - ARX model
+  - Newey-West
+  - sovereign CDS
+  - out-of-sample forecasting
+  - Diebold-Mariano test
+  - Clark-West test
