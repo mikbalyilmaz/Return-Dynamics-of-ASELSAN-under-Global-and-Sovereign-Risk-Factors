@@ -25,7 +25,7 @@ from common import save_table
 from aselsan.data import asof_panel, transform
 from aselsan.forecast import clark_west, diebold_mariano, direction, mae, oos_r2, recursive, rmse
 from aselsan.models import design
-from aselsan.style import AQUA, BLUE, GOLD, INK, MUTED, ORANGE, PURPLE, decimal_axis, save_figure, use_style
+from aselsan.style import BLUE, INK, SERIES, auto_axis, free_axis, save_figure, use_style
 
 TEST_START = "2025-01-01"
 P = Q = 2
@@ -78,35 +78,42 @@ save_table([{"test_first": str(yt.index[0].date()), "test_last": str(yt.index[-1
              "sd_realized": float(yt.std()), "mean_realized": float(yt.mean())}], "table12_test_sample")
 
 use_style()
-SHOW = [("ARX", BLUE, "-"), ("AR", PURPLE, "-"), ("Lasso", AQUA, "-"), ("Random forest", GOLD, "-"),
-        ("XGBoost", ORANGE, "-")]
+SHOW = [("ARX", BLUE, "-"), ("AR", SERIES[2][0], "-"), ("Lasso", INK, "--"), ("Random forest", BLUE, "--"),
+        ("XGBoost", INK, "-")]
 
 
 def draw():
     import matplotlib.dates as mdates
     import matplotlib.pyplot as plt
-    fig, axes = plt.subplots(1, 2, figsize=(7.2, 2.9), constrained_layout=True)
+    fig, axes = plt.subplots(1, 2, figsize=(4.75, 2.9), constrained_layout=True)
     base = (bench - yt) ** 2
     ax = axes[0]
+    vals = [0.0]
     for name, col, ls in SHOW:
-        ax.plot(yt.index, (base - (all_fc[name] - yt) ** 2).cumsum(), color=col, lw=1.1, ls=ls, label=name)
-    ax.axhline(0, color=MUTED, lw=0.8)
+        c = (base - (all_fc[name] - yt) ** 2).cumsum()
+        vals += list(c)
+        ax.plot(yt.index, c, color=col, lw=1.1, ls=ls, label=name)
+    ax.axhline(0, color=INK, lw=0.6)
+    auto_axis(ax, "y", vals)
     ax.set_title("(a) Forecasts with lagged information")
     ax.set_ylabel("Cumulative SSE(mean) $-$ SSE(model)")
-    ax.legend(loc="lower left", fontsize=7.5, ncol=2)
+    ax.legend(loc="upper right", bbox_to_anchor=(1.0, 0.6), fontsize=6.3, handlelength=2.2)
     ax = axes[1]
+    vals = [0.0]
     for name, col, ls in (("ARX, same-day factors", BLUE, "--"), ("BIST100 same day only", INK, ":"),
                           ("ARX", BLUE, "-")):
-        ax.plot(yt.index, (base - (all_fc[name] - yt) ** 2).cumsum(), color=col, lw=1.1, ls=ls,
+        c = (base - (all_fc[name] - yt) ** 2).cumsum()
+        vals += list(c)
+        ax.plot(yt.index, c, color=col, lw=1.1, ls=ls,
                 label=name if name != "ARX" else "ARX, lagged factors")
-    ax.axhline(0, color=MUTED, lw=0.8)
+    ax.axhline(0, color=INK, lw=0.6)
+    auto_axis(ax, "y", vals)
     ax.set_title("(b) Version 1's design: same-day factors")
-    ax.legend(loc="upper left", fontsize=7.5)
+    ax.legend(loc="upper left", fontsize=6.3, handlelength=2.2)
     for a in axes:
-        a.xaxis.set_major_locator(mdates.MonthLocator(bymonth=(1, 4, 7, 10)))
+        a.xaxis.set_major_locator(mdates.MonthLocator(bymonth=(1, 7)))
         a.xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m"))
-        a.tick_params(axis="x", labelsize=7.5)
-        decimal_axis(a)
+        free_axis(a, "x")
     return fig
 
 

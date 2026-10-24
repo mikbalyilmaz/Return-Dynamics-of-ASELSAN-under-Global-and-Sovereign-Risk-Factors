@@ -20,7 +20,7 @@ from scipy import stats
 from common import save_table
 from aselsan.data import asof_panel, transform
 from aselsan.models import CHANNELS, channel_columns, design, factor_names, fit_hac, joint_test, sum_test
-from aselsan.style import BLUE, MUTED, ORANGE, decimal_axis, save_figure, use_style
+from aselsan.style import BLUE, INK, auto_axis, free_axis, save_figure, use_style, value_axis
 
 levels, _ = asof_panel()
 trans = transform(levels)
@@ -99,31 +99,36 @@ use_style()
 
 def draw():
     import matplotlib.pyplot as plt
-    fig, axes = plt.subplots(1, 2, figsize=(7.2, 2.9), constrained_layout=True,
-                             gridspec_kw={"width_ratios": [1, 1.35]})
+    fig, axes = plt.subplots(1, 2, figsize=(4.75, 2.4), constrained_layout=True,
+                             gridspec_kw={"width_ratios": [1, 1.3]})
     ax = axes[0]
     ps = [r["p=q"] for r in r2]
-    ax.plot(ps, [r["R2_same_day"] for r in r2], color=BLUE, marker="o", ms=4, lw=1.2, label="with same-day factors")
-    ax.plot(ps, [r["R2_lagged"] for r in r2], color=ORANGE, marker="s", ms=4, lw=1.2, label="lagged factors only")
-    ax.set_xticks(ps)
-    ax.set_ylim(0, 0.5)
+    same = [r["R2_same_day"] for r in r2]
+    lag = [r["R2_lagged"] for r in r2]
+    ax.plot(ps, same, color=BLUE, marker="o", ms=3, lw=1.2)
+    ax.plot(ps, lag, color=INK, marker="s", ms=3, lw=1.2)
+    ax.annotate("with same-day factors", xy=(ps[-1], same[-1]), xytext=(0, -6), textcoords="offset points",
+                color=BLUE, fontweight="bold", fontsize=7, va="top", ha="right")
+    ax.annotate("lagged factors only", xy=(ps[-1], lag[-1]), xytext=(0, 6), textcoords="offset points",
+                color=INK, fontweight="bold", fontsize=7, va="bottom", ha="right")
+    value_axis(ax, "x", 1, 5, 1)
+    value_axis(ax, "y", 0, 0.5, 0.1)
     ax.set_xlabel("$p = q$")
-    ax.set_ylabel("In-sample $R^2$")
-    ax.set_title("(a) Explanatory power")
-    ax.legend(loc="center right")
-    decimal_axis(ax)
+    ax.set_title("(a) In-sample $R^2$")
     ax = axes[1]
     yy = np.arange(len(eff))[::-1]
     for yi, e in zip(yy, eff):
         ax.plot([e["lo95"], e["hi95"]], [yi, yi], color=BLUE, lw=1.4)
-        ax.plot(e["effect_per_sd"], yi, "o", color=BLUE, ms=4)
-    ax.axvline(0, color=MUTED, lw=0.8)
+        ax.plot(e["effect_per_sd"], yi, "o", color=BLUE, ms=3)
+    ax.axvline(0, color=INK, lw=0.7)
     ax.set_yticks(yy)
-    ax.set_yticklabels([e["channel"] for e in eff], fontsize=8)
-    ax.set_xlabel("Effect on ASELSAN return (pp) of a 1 s.d. move, lags 0-2")
+    ax.set_yticklabels([e["channel"] for e in eff], fontsize=7)
+    ax.tick_params(axis="y", length=0)
+    ax.set_ylim(yy.min() - 0.6, yy.max() + 0.6)
+    free_axis(ax, "y")
+    auto_axis(ax, "x", [v for e in eff for v in (e["lo95"], e["hi95"])])
+    ax.set_xlabel("pp, effect of a 1 s.d. move, lags 0-2")
     ax.set_title("(b) Same-day model: cumulative effects")
-    ax.grid(axis="y", visible=False)
-    decimal_axis(ax, "x")
     return fig
 
 

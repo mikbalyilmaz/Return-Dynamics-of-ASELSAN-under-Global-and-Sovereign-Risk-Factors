@@ -20,7 +20,7 @@ import statsmodels.api as sm
 from common import save_table
 from aselsan.data import SERIES, asof_panel, load_cds, load_yahoo, transform
 from aselsan.legacy import run_v1
-from aselsan.style import BLUE, MUTED, ORANGE, decimal_axis, save_figure, use_style
+from aselsan.style import BLUE, INK, RED, auto_axis, end_label, free_axis, may_touch, save_figure, use_style
 
 yahoo, cds = load_yahoo(), load_cds()
 levels, age = asof_panel(yahoo, cds)
@@ -88,22 +88,23 @@ use_style()
 def draw():
     import matplotlib.dates as mdates
     import matplotlib.pyplot as plt
-    fig, axes = plt.subplots(1, 2, figsize=(7.2, 2.8), constrained_layout=True)
+    fig, axes = plt.subplots(1, 2, figsize=(4.75, 2.3), constrained_layout=True)
     ax = axes[0]
-    ax.plot(cum.index, cum["r_ASELS"], color=BLUE, lw=1.1, label="ASELSAN")
-    ax.plot(cum.index, cum["r_BIST100"], color=ORANGE, lw=1.1, label="BIST100")
-    ax.set_ylabel("Cumulative log return (%)")
-    ax.set_title("(a) Cumulative log returns")
-    ax.legend(loc="upper left")
+    ax.plot(cum.index, cum["r_ASELS"], color=BLUE, lw=1.1)
+    ax.plot(cum.index, cum["r_BIST100"], color=INK, lw=1.1)
+    end_label(ax, cum.index[-1], cum["r_ASELS"].iloc[-1], "ASELSAN", BLUE)
+    end_label(ax, cum.index[-1], cum["r_BIST100"].iloc[-1], "BIST100", INK)
+    auto_axis(ax, "y", np.append(cum[["r_ASELS", "r_BIST100"]].to_numpy().ravel(), 0.0))
+    ax.set_title("(a) Cumulative log return, %")
     ax = axes[1]
     ax.plot(beta.index, beta.values, color=BLUE, lw=1.0)
-    ax.axhline(1.0, color=MUTED, lw=0.8, ls="--")
-    ax.set_ylabel("Beta")
+    may_touch(ax.axhline(1.0, color=RED, lw=0.8, ls=(0, (1, 1.4))))
+    auto_axis(ax, "y", beta.values)
     ax.set_title(f"(b) Rolling market beta, {window} days")
     for a in axes:
         a.xaxis.set_major_locator(mdates.YearLocator(2))
         a.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
-        decimal_axis(a)
+        free_axis(a, "x")
     return fig
 
 

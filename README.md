@@ -127,7 +127,7 @@ See [NEWS.md](NEWS.md): what was added and a table of the corrections to version
 
 See [CITATION.cff](CITATION.cff), or:
 
-> Yılmaz, M. İ. (2026). *Return Dynamics of ASELSAN under Global and Sovereign Risk Factors* (Version 2.0.0)
+> Yılmaz, M. İ. (2026). *Return Dynamics of ASELSAN under Global and Sovereign Risk Factors* (Version 2.1.0)
 > [Computer software]. https://github.com/mikbalyilmaz/Return-Dynamics-of-ASELSAN-under-Global-and-Sovereign-Risk-Factors
 
 This project is for academic purposes and is not investment advice.

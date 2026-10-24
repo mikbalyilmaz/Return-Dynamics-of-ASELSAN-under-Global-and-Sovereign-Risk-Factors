@@ -1,61 +1,62 @@
-\documentclass[a4paper,10pt]{article}
+\documentclass[11pt,a4paper]{article}
 
-% Encoding and typeface: XeLaTeX with Latin Modern Roman (fontspec default), English via polyglossia
+% Typeface: XeLaTeX with Latin Modern Roman (fontspec default)
 \usepackage{fontspec}
 \usepackage{polyglossia}
 \setdefaultlanguage[variant=british]{english}
 
-% Layout (tight margins)
-\usepackage[a4paper,top=1.2cm,bottom=1.3cm,left=1.3cm,right=1.3cm]{geometry}
+% Page: the measures of the note template (A4, 11 pt, 4.5 cm side margins, header and page count)
+\usepackage[a4paper,left=4.5cm,right=4.5cm,top=4.5cm,bottom=4.1cm,headheight=14pt,headsep=0.55cm,
+  footskip=0.55cm]{geometry}
+\linespread{0.946}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textbf{PROJECT NOTE} $|$ ASELSAN returns}
+\fancyhead[R]{\small\textbf{Compiled on:} \notedate}
+\fancyfoot[C]{\small\thepage\,/\,\pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
 
-% Typography
 \usepackage{microtype}
-\usepackage{setspace}
-\setstretch{0.92}
-
-% Paragraph settings
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{3pt}
-
-% Section styling
-\usepackage{titlesec}
-\titleformat{\section}{\bfseries\normalsize}{\thesection.}{0.4em}{}
-\titlespacing*{\section}{0pt}{6pt}{3pt}
-
-% Better lists
-\usepackage{enumitem}
-\setlist{noitemsep, topsep=2pt}
-
-% Mathematics, tables, figures
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{booktabs}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,array,tabularx}
 \usepackage{graphicx}
+\usepackage{enumitem}
+\setlist{noitemsep, topsep=3pt, leftmargin=*}
+\usepackage{xcolor}
+\definecolor{secblue}{HTML}{1F3A5F}
+\definecolor{boxback}{HTML}{EEF2F6}
+\definecolor{mark}{HTML}{9B2226}
+\definecolor{hl}{HTML}{FFF36B}
+\usepackage{titlesec}
+\titleformat{\section}{\color{secblue}\bfseries\normalsize}{\thesection.}{0.4em}{}
+\titlespacing*{\section}{0pt}{10pt}{4pt}
+\usepackage[font=small,labelfont=bf,labelsep=period,skip=4pt]{caption}
+\usepackage[bottom]{footmisc}
 \usepackage{placeins}
-\usepackage[font=small,labelfont=bf,labelsep=period,skip=3pt]{caption}
-\setlength{\textfloatsep}{8pt}
-\setlength{\floatsep}{6pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\textfloatsep}{10pt}
+\emergencystretch=3em
+
+\newcommand{\notedate}{\number\day\space\ifcase\month\or January\or February\or March\or April\or May\or June\or
+  July\or August\or September\or October\or November\or December\fi\space\number\year}
 
 \input{numbers.tex}
 
 \begin{document}
 
-% Header (top-right)
-\begin{flushright}
-\small \textbf{Compiled on:} \today
-\end{flushright}
 
-\vspace{-6pt}
-\hrule
-\vspace{24pt}
+\vspace*{14pt}
+\begin{tabular}{@{}p{2.35cm}@{}p{\dimexpr\textwidth-2.35cm}@{}}
+\textbf{TITLE:} & \textbf{\large Return Dynamics of ASELSAN under Global and Sovereign Risk Factors: co-movement and one-day-ahead forecasts}\\[3pt]
+\textbf{SUBJECT:} & Aim, method and results of the analyses in version 2 of the repository\newline
+\texttt{Return-Dynamics-of-ASELSAN-under-}\newline\texttt{Global-and-Sovereign-Risk-Factors}\\[3pt]
+\textbf{AUTHOR:} & Muhammed İkbal Yılmaz (myucanlar@gmail.com)
+\end{tabular}
 
-\textbf{TITLE:} Return Dynamics of ASELSAN under Global and Sovereign Risk Factors: co-movement and one-day-ahead forecasts
-
-\textbf{SUBJECT:} Aim, method and results of the analyses in version 2 of the repository\newline
-\texttt{Return-Dynamics-of-ASELSAN-under-Global-and-Sovereign-Risk-Factors}
-
-\textbf{PREPARED BY:} Muhammed İkbal Yılmaz (myucanlar@gmail.com)
-
+\vspace{8pt}
 \vspace{12pt}
 
 \section{Aim and scope}
@@ -117,9 +118,11 @@ $p = q = 2$, and so does version 2 unless stated otherwise.
 \textbf{Estimation and standard errors.} $\hat\theta = (X'X)^{-1}X'y$, with the Newey--West (1987) covariance with Bartlett
 weights and $L = 5$ lags, as in version 1:
 \begin{equation}
-  \hat V = (X'X)^{-1}\, \hat S\, (X'X)^{-1}, \qquad
-  \hat S = \sum_t \hat u_t^2 x_t x_t' + \sum_{\ell=1}^{L} \Bigl(1 - \frac{\ell}{L+1}\Bigr)
+\begin{aligned}
+  \hat V &= (X'X)^{-1}\, \hat S\, (X'X)^{-1},\\
+  \hat S &= \sum_t \hat u_t^2 x_t x_t' + \sum_{\ell=1}^{L} \Bigl(1 - \frac{\ell}{L+1}\Bigr)
            \sum_{t} \hat u_t \hat u_{t-\ell}\, \bigl(x_t x_{t-\ell}' + x_{t-\ell} x_t'\bigr).
+\end{aligned}
 \end{equation}
 
 \textbf{Channel tests.} Version 1 states, for each factor $k$, the hypothesis $H_0: \beta_{k,j} = 0$ for all $j$, but tests
@@ -149,8 +152,11 @@ its training data.
   \item the Diebold--Mariano (1995) test of equal squared-error loss with the correction of Harvey, Leybourne and Newbold (1997).
   For one-step forecasts and $d_t = e_{1,t}^2 - e_{2,t}^2$,
   \begin{equation}
-    \mathrm{DM} = \frac{\bar d}{\sqrt{\hat\sigma_d^2/T}}\sqrt{\frac{T-1}{T}}, \qquad
-    \hat\sigma_d^2 = \frac1T\sum_t (d_t - \bar d)^2, \qquad \mathrm{DM} \sim t_{T-1}\ \text{(two-sided)};
+    \begin{aligned}
+    \mathrm{DM} &= \frac{\bar d}{\sqrt{\hat\sigma_d^2/T}}\sqrt{\frac{T-1}{T}}, \qquad
+    \hat\sigma_d^2 = \frac1T\sum_t (d_t - \bar d)^2,\\
+    \mathrm{DM} &\sim t_{T-1}\ \text{(two-sided)};
+    \end{aligned}
   \end{equation}
   \item the Clark--West (2007) test for nested models. If the small model (forecast $\hat y_{1,t}$) is nested in the large one
   ($\hat y_{2,t}$), the large model's squared error is biased upwards under the null by the noise of its extra estimated
@@ -183,20 +189,20 @@ that day.
 \textbf{How to read the figure.} (a) $\sum_{u \le t} r_u$ for ASELSAN and BIST100. (b) The slope of $r^{\mathrm{ASELS}}$ on
 $r^{\mathrm{BIST}}$ in the previous 120 days, as in version 1.
 
-\begin{figure}[h]
-\centering\includegraphics[width=0.86\linewidth]{../figures/fig1_data.pdf}
+\begin{figure}[!htb]
+\centering\includegraphics[width=\textwidth]{../figures/fig1_data.pdf}
 \caption{ASELSAN and BIST100, \FirstDay{} to \LastDay.}\label{fig:data}
 \end{figure}
 
-\begin{table}[h]
+\begin{table}[!htb]
 \centering\small
 \caption{Version 1: printed results and the same code run on the frozen data.}\label{tab:rep}
-\begin{tabular}{lrr}
+\begin{tabularx}{\textwidth}{@{}X>{\raggedleft\arraybackslash}p{1.9cm}>{\raggedleft\arraybackslash}p{2.5cm}@{}}
 \toprule
 Quantity & Printed by version 1 & Version 1's code, frozen data \\
 \midrule
 \input{tab_reproduced.tex}
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 \textbf{Finding.} Version 1's code on the frozen data gives its printed results to within 0.01 for $R^2$, the market
@@ -224,22 +230,23 @@ cumulative effect; the effect of a one-standard-deviation change in percentage p
 and the joint test when the lag-0 term is removed. Figure~\ref{fig:comove}(a): $R^2$ with and without the same-day factors. (b):
 the effects of the table.
 
-\begin{table}[h]
+\begin{table}[!htb]
 \centering\small
 \caption{Channels in the ARX model, $p = q = 2$, $N = \Nobs$, Newey--West with 5 lags. Effects in percentage points of the
 ASELSAN return per standard deviation of the factor, lags 0--2.}\label{tab:channels}
-\begin{tabular}{lrrcr}
+\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{2.25cm}rrcr@{}}
 \toprule
- & \multicolumn{3}{c}{Same-day model ($j_0 = 0$)} & Lagged model ($j_0 = 1$) \\
-\cmidrule(lr){2-4}\cmidrule(lr){5-5}
+ & \multicolumn{3}{c}{Same-day model ($j_0 = 0$)} & Lagged ($j_0 = 1$) \\
+\cmidrule(lr){2-4}\cmidrule(l){5-5}
 Channel & joint $p$ & cumulative $p$ & effect per s.d. [95\% CI] & joint $p$ \\
 \midrule
 \input{tab_channels.tex}
 \end{tabular}
 \end{table}
 
-\begin{figure}[h]
-\centering\includegraphics[width=0.86\linewidth]{../figures/fig2_comovement.pdf}
+\begin{figure}[!htb]
+\centering\includegraphics[width=\textwidth]{../figures/fig2_comovement.pdf}
 \caption{(a) In-sample $R^2$ of model (\ref{eq:arx}) with $j_0 = 0$ and $j_0 = 1$. (b) Cumulative effect of a
 one-standard-deviation change of each factor (lags 0--2) with 95\% HAC interval.}\label{fig:comove}
 \end{figure}
@@ -281,10 +288,11 @@ directional accuracy (\%) and the PT $p$-value; DM $p$-value against the prevail
 Figure~\ref{fig:fc}: $\sum_{u \le t} [(y_u - \bar y_u)^2 - (y_u - \hat y_u)^2]$; a rising line means the model is gaining on the
 prevailing mean.
 
-\begin{table}[h]
+\begin{table}[!htb]
 \centering\small
 \caption{One-day-ahead forecasts, \TestFirst{} to \TestLast{} (\TestDays{} days), recursive and refitted daily.}\label{tab:fc}
-\begin{tabular}{lrrrrrr}
+\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lrrrrrr@{}}
 \toprule
 Model & RMSE & $R^2_{\mathrm{OS}}$ & Dir.\ acc. & PT $p$ & DM $p$ & CW $p$ \\
 \midrule
@@ -292,8 +300,8 @@ Model & RMSE & $R^2_{\mathrm{OS}}$ & Dir.\ acc. & PT $p$ & DM $p$ & CW $p$ \\
 \end{tabular}
 \end{table}
 
-\begin{figure}[h]
-\centering\includegraphics[width=0.86\linewidth]{../figures/fig3_forecasts.pdf}
+\begin{figure}[!htb]
+\centering\includegraphics[width=\textwidth]{../figures/fig3_forecasts.pdf}
 \caption{Cumulative difference of squared errors, prevailing mean minus model. (a) Forecasts with information up to $t-1$.
 (b) The same-day design of version 1 against the lagged ARX model.}\label{fig:fc}
 \end{figure}
@@ -332,25 +340,26 @@ large share of the squared errors; Figure~\ref{fig:fc}(b) shows the jumps of sin
 
 \section*{References}
 {\small
-Campbell, J. Y., Thompson, S. B. (2008). Predicting excess stock returns out of sample: can anything beat the historical average?
-\textit{Review of Financial Studies}, 21(4), 1509--1531.\\
-Clark, T. E., West, K. D. (2007). Approximately normal tests for equal predictive accuracy in nested models. \textit{Journal of
-Econometrics}, 138(1), 291--311.\\
-Diebold, F. X., Mariano, R. S. (1995). Comparing predictive accuracy. \textit{Journal of Business \& Economic Statistics}, 13(3),
-253--263.\\
-Harvey, D., Leybourne, S., Newbold, P. (1997). Testing the equality of prediction mean squared errors. \textit{International
-Journal of Forecasting}, 13(2), 281--291.\\
-Newey, W. K., West, K. D. (1987). A simple, positive semi-definite, heteroskedasticity and autocorrelation consistent covariance
-matrix. \textit{Econometrica}, 55(3), 703--708.\\
-Pesaran, M. H., Timmermann, A. (1992). A simple nonparametric test of predictive performance. \textit{Journal of Business \&
-Economic Statistics}, 10(4), 461--465.\\
-Rapach, D. E., Zhou, G. (2013). Forecasting stock returns. In G. Elliott and A. Timmermann (Eds.), \textit{Handbook of Economic
-Forecasting} (Vol. 2A, pp. 328--383). Elsevier.\\
-Welch, I., Goyal, A. (2008). A comprehensive look at the empirical performance of equity premium prediction. \textit{Review of
-Financial Studies}, 21(4), 1455--1508.
+\setlength{\parskip}{2pt}
+\hangindent=1.27cm\hangafter=1 Campbell, J. Y., \& Thompson, S. B. (2008). Predicting excess stock returns out of sample: can anything beat the historical average?
+\textit{Review of Financial Studies}, 21(4), 1509--1531.\par
+\hangindent=1.27cm\hangafter=1 Clark, T. E., \& West, K. D. (2007). Approximately normal tests for equal predictive accuracy in nested models. \textit{Journal of
+Econometrics}, 138(1), 291--311.\par
+\hangindent=1.27cm\hangafter=1 Diebold, F. X., \& Mariano, R. S. (1995). Comparing predictive accuracy. \textit{Journal of Business \& Economic Statistics}, 13(3),
+253--263.\par
+\hangindent=1.27cm\hangafter=1 Harvey, D., Leybourne, S., \& Newbold, P. (1997). Testing the equality of prediction mean squared errors. \textit{International
+Journal of Forecasting}, 13(2), 281--291.\par
+\hangindent=1.27cm\hangafter=1 Newey, W. K., \& West, K. D. (1987). A simple, positive semi-definite, heteroskedasticity and autocorrelation consistent covariance
+matrix. \textit{Econometrica}, 55(3), 703--708.\par
+\hangindent=1.27cm\hangafter=1 Pesaran, M. H., \& Timmermann, A. (1992). A simple nonparametric test of predictive performance. \textit{Journal of Business \&
+Economic Statistics}, 10(4), 461--465.\par
+\hangindent=1.27cm\hangafter=1 Rapach, D. E., \& Zhou, G. (2013). Forecasting stock returns. In G. Elliott \& A. Timmermann (Eds.), \textit{Handbook of Economic
+Forecasting} (Vol. 2A, pp. 328--383). Elsevier.\par
+\hangindent=1.27cm\hangafter=1 Welch, I., \& Goyal, A. (2008). A comprehensive look at the empirical performance of equity premium prediction. \textit{Review of
+Financial Studies}, 21(4), 1455--1508.\par
 
 \smallskip
-An AI coding assistant was used in writing the code and in preparing this note. All numbers are generated from
+All numbers are generated from
 \texttt{figures/*.csv} by \texttt{make\_paper.py}.
 }
 
