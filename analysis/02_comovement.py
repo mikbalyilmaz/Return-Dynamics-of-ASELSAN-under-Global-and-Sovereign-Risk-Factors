@@ -129,6 +129,8 @@ def draw():
     auto_axis(ax, "x", [v for e in eff for v in (e["lo95"], e["hi95"])])
     ax.set_xlabel("pp, effect of a 1 s.d. move, lags 0-2")
     ax.set_title("(b) Same-day model: cumulative effects")
+    for a in fig.axes[:1]:   # the vertical axis stands 4 pt away from the data, which start on the first x value
+        a.spines["left"].set_position(("outward", 4))
     return fig
 
 
